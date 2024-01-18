@@ -3,6 +3,7 @@ package com.example.webappmanga.security;
 import com.example.webappmanga.utilities.CustomUser.CustomUserDetailsService;
 import com.example.webappmanga.utilities.Jwt.JwtAuthenticationFilter;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,9 +21,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityApp implements WebMvcConfigurer {
-    private final CustomUserDetailsService customUserDetailsService;
+    @Autowired
+    private CustomUserDetailsService customUserDetailsService;
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -50,7 +51,8 @@ public class SecurityApp implements WebMvcConfigurer {
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui/**",
-                                "/v3/api-docs/**").permitAll()).authenticationProvider(authenticationProvider())
+                                "/v3/api-docs/**",
+                                "/api/v1/auth/**").permitAll()).authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class).build();
     }
 }

@@ -32,7 +32,7 @@ public class SignUpService implements SendNotificationI<User> {
     public static final String template_verify_code_sign_up = "templateVerifyCodeSignUp";
     private static String message_notification = "Please click verify your account: ";
     @Transactional
-    public Integer register(SignUpDTO signUpDTO){
+    public Integer register(SignUpDTO signUpDTO,String url){
         if (userService.findByEmail(signUpDTO.email()) == null){
             if (checkStringPassword.isStringValid(signUpDTO.password()) == false
                 || checkStringEmail.isStringValid(signUpDTO.email()) == false){
@@ -48,6 +48,7 @@ public class SignUpService implements SendNotificationI<User> {
             user.setRemainingVerification(5);
             log.info("-----> SignUpService | register: sign up with email {}",user.getEmail());
             createUser.create(user);
+            sendEmail(user,url);
             return 1;
         }else {
             return 2;
