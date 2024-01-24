@@ -39,6 +39,6 @@ public class SignUpController {
                 .body(new Message(2,"Email already exist"));
     }
     public String applicationUrl(HttpServletRequest request){
-        return "http://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
+        return "https://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
 }
