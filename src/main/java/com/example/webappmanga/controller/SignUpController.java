@@ -27,7 +27,7 @@ public class SignUpController {
     })
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody SignUpDTO signUpDTO){
-        int status = signUpService.register(signUpDTO,applicationUrl(request));
+        int status = signUpService.register(signUpDTO);
         if (status == 0){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new Message(0,"Email or password format is incorrect"));
