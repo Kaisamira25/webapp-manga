@@ -17,51 +17,50 @@ import java.util.Date;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer userId;
+    private Integer user_id;
 
     @Column(name = "email",columnDefinition = "varchar(100)",nullable = false,unique = true)
     private String email;
 
-    @Column(name = "full_name",columnDefinition = "nvarchar(100)",nullable = false)
+    @Column(name = "fullname",columnDefinition = "nvarchar(100)",nullable = false)
     private String fullName;
 
     @JsonIgnore
     @Column(name = "password",columnDefinition = "varchar(1000)",nullable = false)
     private String password;
 
-    @Column(name = "role")
+    @Column(name = "roles")
     @Enumerated(EnumType.STRING)
     private Role role = Role.USER;
 
-    @Column(name = "is_verify")
-    private boolean isVerify = false;
-
-    @Column(name = "is_blocked")
+   
+    @Column(name = "is_block")
     private boolean isBlocked = false;
 
-    @Column(name = "remining_verification")
-    private int remainingVerification = 5;
-
-    @JsonIgnore
-    @Column(name = "verification_email_code",columnDefinition = "varchar(255)")
-    private String verificationEmailCode;
-
-    @JsonIgnore
-    @Column(name = "verification_email_code_expiration")
-    private Date verificationEmailCodeExpiration;
-
-    @JsonIgnore
+@JsonIgnore
     @Column(name = "refresh_token",columnDefinition = "nvarchar(1000)")
     private String refreshToken;
 
     @JsonIgnore
-    @Column(name = "password_refresh_token",columnDefinition = "nvarchar(100)")
+    @Column(name = "verify_email_code",columnDefinition = "varchar(255)")
+    private String verificationEmailCode;
+
+    @JsonIgnore
+    @Column(name = "verify_email_code_expiration")
+    private Date verificationEmailCodeExpiration;
+    
+    @Column(name = "is_verify")
+    private boolean isVerify = false;
+
+    @Column(name = "create_at")
+    private Date createdAt;
+
+    @JsonIgnore
+    @Column(name = "refresh_password_code",columnDefinition = "nvarchar(100)")
     private String passwordRefreshToken;
 
     @JsonIgnore
-    @Column(name = "password_refresh_token_expiration")
+    @Column(name = "refresh_password_code_expiration")
     private Date passwordRefreshTokenExpiration;
 
-    @Column(name = "created_at")
-    private Date createdAt;
 }
