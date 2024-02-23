@@ -52,7 +52,8 @@ public class SecurityApp implements WebMvcConfigurer {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui/**",
                                 "/v3/api-docs/**",
-                                "/api/v1/auth/**").permitAll()).authenticationProvider(authenticationProvider())
+                                "/api/v1/auth/**",
+                                "/api/v1/address/**").permitAll()).authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class).build();
     }
 }

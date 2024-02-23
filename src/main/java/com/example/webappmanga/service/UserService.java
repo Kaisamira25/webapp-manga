@@ -25,4 +25,10 @@ public class UserService implements UserServiceI, CreateAndUpdateI<Integer,User>
     public User update(Integer key, User entity) {
         return userRepository.save(entity);
     }
+
+	@Override
+	public User findById(Integer id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

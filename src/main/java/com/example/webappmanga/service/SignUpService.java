@@ -45,7 +45,6 @@ public class SignUpService implements SendNotificationI<User> {
             user.setCreatedAt(WhatTime.getTheTimeRightNow());
             user.setVerificationEmailCode(codeVerificationEmail.generateCode());
             user.setVerificationEmailCodeExpiration(codeVerificationEmail.codeExpiration());
-            user.setRemainingVerification(5);
             log.info("-----> SignUpService | register: sign up with email {}",user.getEmail());
             createUser.create(user);
             sendEmail(user,url);
