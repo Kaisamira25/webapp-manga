@@ -2,6 +2,7 @@ package com.example.webappmanga.config;
 
 import com.example.webappmanga.service.VerificationCodeManager;
 import com.example.webappmanga.service.serviceInterface.GenerateVerificationCodeI;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
