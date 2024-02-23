@@ -52,7 +52,14 @@ public class SecurityApp implements WebMvcConfigurer {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/swagger-ui/**",
                                 "/v3/api-docs/**",
-                                "/api/v1/auth/**").permitAll()).authenticationProvider(authenticationProvider())
+                                "/api/v1/auth/**",
+                                "/api/v1/genre/**",
+                                "/api/v1/type/**",
+                                "/api/v1/cover/**",
+                                "/api/v1/publications/**",
+                                "/api/v1/gift/**",
+                                "/api/v1/publications-genre/**",
+                                "/api/v1/publications-gift/**").permitAll()).authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class).build();
     }
 }
