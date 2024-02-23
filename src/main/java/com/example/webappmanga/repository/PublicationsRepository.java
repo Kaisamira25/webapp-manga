@@ -17,10 +17,12 @@ import java.util.Optional;
 public interface PublicationsRepository extends JpaRepository<Publications, Integer> {
     Optional<Publications> findByTitle(String title);
 
+
     @Query("SELECT new com.example.webappmanga.dto.request.RPublicationsGenreDTO(p.publicationsID, g.genreID) FROM Publications p JOIN p.genres g")
     List<RPublicationsGenreDTO> findAllPublicationsGenres();
 
     @Query("SELECT new com.example.webappmanga.dto.request.RPublicationsGiftDTO(p.publicationsID, gift.promotionalGiftID) FROM Publications p JOIN p.gifts gift")
     List<RPublicationsGiftDTO> findAllPublicationsGifts();
 
+/// tesrt
 }
