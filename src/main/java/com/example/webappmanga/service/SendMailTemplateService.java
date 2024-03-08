@@ -45,10 +45,10 @@ public class SendMailTemplateService {
         templateResolver.setCacheable(false);
         return templateResolver;
     }
-    public String sendEmailWithTemplate(String title, String content, String urlVerify, String templateName){
+    public String sendEmailWithTemplate(String title, String content, String codeVerify, String templateName){
         final Context context = new Context();
         context.setVariable("title",title);
-        context.setVariable("urlVerify",urlVerify);
+        context.setVariable("codeVerify",codeVerify);
         context.setVariable("content",content);
         log.info("----->SendMailTemplateService | sendEmailWithTemplate: {}",templateName);
         return templateEngine.process(templateName,context);
