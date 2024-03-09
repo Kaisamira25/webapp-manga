@@ -9,10 +9,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -26,8 +23,8 @@ public class SignUpController {
             @ApiResponse(description = "Password or email format is not correct",responseCode = "400")
     })
     @PostMapping("/register")
-    public ResponseEntity<?> register(@RequestBody SignUpDTO signUpDTO){
-        int status = signUpService.register(signUpDTO);
+    public ResponseEntity<?> register(@RequestBody SignUpDTO signUpDTO, HttpServletRequest request){
+        int status = signUpService.register(signUpDTO, request);
         if (status == 0){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST)
                     .body(new Message(0,"Email or password format is incorrect"));
@@ -41,4 +38,26 @@ public class SignUpController {
     public String applicationUrl(HttpServletRequest request){
         return "https://" + request.getServerName() + ":" + request.getServerPort() + request.getContextPath();
     }
+
+
+    // OTP
+    @Operation(description = "User verify",summary = "Verify",responses = {
+            @ApiResponse(description = "Success",responseCode = "200"),
+            @ApiResponse(description = "Verification failed",responseCode = "400")
+    })
+    @PostMapping("/verify")
+    public ResponseEntity<?> verify(@RequestParam String otp, HttpServletRequest request) {
+        // Lấy email từ session hoặc cookie
+        String email = (String) request.getSession().getAttribute("email");
+
+        boolean isVerified = signUpService.verify(email, otp);
+        if (isVerified) {
+            return ResponseEntity.status(HttpStatus.OK)
+                    .body(new Message(1,"Verification successful"));
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(new Message(0,"Verification failed"));
+        }
+    }
+
 }
